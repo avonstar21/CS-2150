@@ -1,0 +1,101 @@
+C00E 000	jmp	start	skip around the variables
+000A 001 ten	dw	10	array size max
+5000 002	storeit 4000	store value function #should be 4000 in the hardcode value but the program wont run unless its 5000
+5000 003	loadit	3000	load value function  #should be 3000 in the hardcode value but the program wont run unless its 5000
+0000 004 k	dw	0	int k = 0
+0001 005 one	dw	1
+0000 006 curr	dw	0
+0000 007 i	dw	0	int i = 0
+0009 008 j	dw	9	int j = 9
+0000 009 prev
+0000 00A temp	dw 	0
+3064 00B	load	a	loading the address for a 
+5064 00C	add 	a	add value to a
+4064 00D	store	a	store it into a
+3001 00E loop	load	ten	if k>= 10 xit
+6004 00F	sub 	k	subtract k
+E01C 010	jmpl	xit	if ten == 0 xit
+D01C 011	jmpe	xit	if ten < 0 xit
+3002 012	load	loadit	bulding the instruction
+5064 013	add	a	add memory adress a
+5004 014	add	k	add memory address k
+4017 015	store		store instruction
+1000 016	readH		read input
+0000 017 doit 	storeit	0
+3004 018	load k	
+5005 019 	add	1
+4004 01A	store 		store in k
+C00E 01B	jmp 	goto	loop
+300A 01C loop1	load	ten	load 10
+6007 01D	sub i
+E050 01E	jmpl	xit	if ten==0, xit to line _____
+D050 01F	jmpe	xit	if ten < 0, xit to line ______
+3008 020 loop2	load	j	if j <= i exit
+6007 021 	sub	i	subtract i
+E04F 022 check	jmpl		if acc == 0, jump to end of loop 2 to go back to loop 1
+D04F 023 check jmpe		if acc < 0, jump to end of loop 2 to go back to loop 1
+3003 024	load		load my loadit func
+5064 025	add	a	add array address
+5008 026	add	j	add index j
+4028 027	loadfunc	store my func
+0000 028 doit	load	val	load array val
+4006 029 	store	curr	putting a value into curr
+3003 02A	load		load 
+5064 02B f2	add	a	adding array address
+5008 02C	add	j	add j
+6005 02D	sub 	one	subtract one
+402F 02E	load	func	load the address i just made
+0000 02F	dw	0
+4009 030	store	prev	store to prev.
+3009 031	load	prev	load prev value
+6006 032	sub	curr	subtract curr val
+D048 033	jmpl		if curr == prev, dont swap
+E048 034	jmpe		if curr> prev, don't swap
+3006 035	load		load the curr value
+400A 036	store		store the value into temp
+3009 037	load	prev	load previous value
+4006 038	store	curr	store prev into curr
+300A 039	load 	temp	load temp value
+4009 03A	store	store  store temp value into prev.
+3002 03B 	load	storeit load my storeit funct
+5064 03C	add	a 	add array address
+5008 03D	add	j	add j
+4040 03E	store storeit	my storeit func
+3009 03F	load prev	load my prev val
+0000 040	doit		store the value.
+3002 041 	load	storeit load my storeit funct
+5064 042	add	a 	add array address
+5008 043	add	j	add j
+6005 044	sub	one	sub one
+4047 045	store storeit	my storeit func
+3006 046	load curr	load my curr val
+0000 047	doit		store the value.
+3008 048	load	j	load j
+6005 049	sub	1	subtract 1
+4008 04A	store j	updated j
+C020 04B	jmp		jump to beginning of loop 2
+3007 04C	load		load i
+5005 04D	add 1		add one
+4007 04E	store		i has been updated
+C01C 04F	jmp		jump to beginning of loop 1
+3004 050	load	k	load k
+6001 051	sub	ten	subtract 10
+4004 052	store	k	store acc value into k
+3001 053 loop3	load 	ten	load ten
+6004 054	sub 	k	subtract k
+D061 055	jmpl 		if acc == 0 jump to halt
+E061 056	jmpe		if acc < 0 jump to halt
+3003 057	load		load my load func
+5064 058	add 	a	add a address
+5004 059	add	k	add k
+405B 05A	store		storing the load
+0000 05B doit	dw	0	
+1800 05C	printH		print the value
+3004 05D	load 	k	loading k
+5005 05E	add	one	add one
+4004 05F	store	k	store it in k
+C053 060 goto	jmp	loop	enter print loop again
+0000 061 	halt	0	halt
+B000 062	nop
+B000 063	nop
+0064 064	dw	a	int[] a

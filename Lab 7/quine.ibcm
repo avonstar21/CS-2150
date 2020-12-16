@@ -1,0 +1,21 @@
+C008	000	jmp	skip around the variables
+0015	001	dw	number of lines
+3000	002	loadit	load function helper
+0000	003	dw	n which is the counter
+0001	004	dw	1
+0000	005 dw	0
+3005	006	load	
+4003	007 store
+3001loop008	load	load #of lines
+6016	009	sub	subtract n the counter
+E015	00A	jmp	if acc < 0, jump to line ____
+3002	00B	load	load the load helper
+5016	00C	add	add line number
+400E	00D	store	store instruction in line
+0000	00E	doit
+1800	00F	print	print whatever is in the acc
+3016	010	load	n
+5004	012	add	1
+4016	013	store	n
+C008	014	goto	loop
+0000	015	halt

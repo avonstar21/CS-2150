@@ -1,0 +1,52 @@
+C00C 000	jmp	start	skip around the variables
+B000 001	nop
+B000 002	nop 
+5000 003 adit	dw	4000
+0001 004 one	dw	1	incrementor
+0000 005 zero	dw	0
+0000 006 i	dw	0	int i
+0000 007 s	dw	0	int s
+0000 008 	dw	0	 // change this to 050
+5000 009 adit	dw	3000
+0000 00A n	dw	
+3050 00B 	load	a	leaving space for changes
+5050 00C 	add 	a	read array address
+4050 00D 	store	a
+1000 00E	readH 		read array size
+400A 00F	store	n
+300A 010 loop1 load 	n	if (i>= N) go to xit
+6004 011	sub	i	decrement the size
+E025 012 check	jmpl	xit	if n == 0, jump to next part of assignment
+D025 013 check	jmpe	xit	if n<0, jump to next part of assignment
+3009 014 	load	adit	form instruction to add[i]
+5050 015	add	a	add memory location of a
+5006 016	add	i	add the index # now each of the values formed is a load instruction
+401C 017	store		storing the 'load' instruction at location 019 
+3003 018 	load	adit	instruction 2 building store
+5050 019	add	a	add memory location of a
+5006 01A	add	i	add the index
+401E 01B	store		store load to 1C
+0000 01C doit 	dw	0	load stuff from address
+1000 01D	readH	doit	read in input from user	
+0000 01E doit	dw	0 	load the stuff from the location
+B000 01F	nop		
+3006 020 	load	i 	loading the index
+5006 021	add	one	increment the index by one
+4006 022	store	i	storing the index
+C010 023	jmp	loop 	go to loop
+B000 024	nop		separation for claritiy of loops
+300A 025 loop2 load	n	if (i>= n) go to xit
+E02D 026 check	jmpl 	xit	if n==0 jump to xit
+D02D 027 check	jmpe	xit	if n < 0 jump to xit	
+3009 028 	load	adit	form instruction to add[i]
+502E 029	add	a	add memory location of a
+500A 02A	add	n	add the size of array
+4024 02B	store	doit	plant the instruction to be used later
+0000 02C doit	dw	0 	do the instruction
+1800 02D	printH		print the value of the instruction
+300A 02E	load	n
+6001 02F	sub	one	decrement n by 1
+400A 030	store	n	store n
+C01F 031	jmp	loop2	goto loop2 beginning
+0000 032	halt		end	
+0000 050 a	dw		create int[]a

@@ -1,0 +1,30 @@
+C008 000	jmp	start	skip around the variables
+0000 001 i	dw	0	int i	 
+0000 002 j	dw	0	int j
+0000 003 k	dw	0	int k
+0000 004 	nop		
+0000 005 zero	dw
+0000 006	nop
+0000 007	nop
+3001 008 start	load		load i
+1000 009	readH		input value for i
+4001 00A	store		store value for i
+3002 00B 	load		load j
+1000 00C 	readH		input value for j
+4002 00D	store		store value for j
+3003 00E	load		load k
+1000 00F	readH		input value for k
+4003 010 	store		store k
+3001 011 	load		load i
+5002 012 	add		add j
+5003 013	add 		add k
+1800 014 	print		print i
+D017 015 	jmpe		if acc == 0 print and stop //add a line that resets ans = 0 
+C008 016	jmp		jump to i and start input again.
+3001 017 	load		load i
+1800 018	printH		print i
+3002 019	load		load j
+1800 01A	printH		print j
+3003 01B	load		load k
+1800 01C	printH		print k
+
